@@ -10,7 +10,7 @@ const studentSchema = new Schema({
     password: String
 })
 
-const studentModel = mongoose.model('student', studentSchema)
+const StudentModel = mongoose.model('Student', studentSchema)
 
-module.exports = studentModel
+module.exports = StudentModel
 
