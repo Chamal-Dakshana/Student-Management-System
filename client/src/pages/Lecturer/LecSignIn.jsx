@@ -18,6 +18,11 @@ export default function LecSignIn() {
         navigate('/lecregister');
       };
 
+    const [data, setData] = useState({
+        email:'',
+        password:'' 
+    })
+
     const signInLecture = (e) => {
         e.preventDefault()
     }
@@ -30,11 +35,11 @@ export default function LecSignIn() {
             <div className='inputs'>
                 <div className='input'>
                 <img className='Img1' src={email_icon} alt="" />
-                <TextField className='text1' type= 'text' id="filled-basic" label="Enter the name" variant="filled" />
+                <TextField className='text1' type='email' id="filled-basic" label="Enter the name" variant="filled" value={data.email} onChange={(e) => setData({...data, email:e.target.value})}/>
                 </div>
                 <div className='input'>
                 <img className='Img1' src={password_icon} alt="" />
-                <TextField className='text1' type= 'text' id="filled-basic" label="Enter the password" variant="filled" />
+                <TextField className='text1' type='password' id="filled-basic" label="Enter the password" variant="filled" value={data.password} onChange={(e) => setData({...data, password:e.target.value})}/>
                 </div>           
             </div>
             <div className='submit-container'>
