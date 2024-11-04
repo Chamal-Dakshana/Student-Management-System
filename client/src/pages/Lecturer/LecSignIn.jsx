@@ -43,8 +43,8 @@ export default function LecSignIn() {
                 </div>           
             </div>
             <div className='submit-container'>
-            <button className='submit' type='submit' >Sign In </button>
-            <button className='submit' type='submit' onClick={handleSignUp}>Sign Up</button>
+                <button className='submit' type='submit' >Sign In </button>
+                <button className='submit' type='submit' onClick={handleSignUp}>Sign Up</button>
             </div>
             </form>
             </div>  
