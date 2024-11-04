@@ -4,6 +4,9 @@ import Navbar from '../src/components/Navbar'
 import Home from '../src/pages/Home'
 import Register from '../src/pages/Register'
 import Login from '../src/pages/Login'
+import LecSignIn from '../src/pages/Lecturer/LecSignIn'
+import LecRegister from './pages/Lecturer/LecRegister'
+import SignNavbar from './components/SignNavbar'
 import axios from 'axios'
 import { Toaster } from 'react-hot-toast'
 import { StudentContextProvider } from '../contest/studentContest'
@@ -17,12 +20,15 @@ function App() {
   return (
     <StudentContextProvider>
     <Navbar></Navbar>
+    <SignNavbar></SignNavbar>
     <Toaster position= 'bottom-right' toastOptions={{duration: 2000}}></Toaster>
     <Routes>
       <Route path='/' element={<Home/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/register' element={<Register/>}></Route>
       <Route path='/dashboard' element={<Dashboard/>}></Route>
+      <Route path='/lecsign' element={<LecSignIn/>}></Route>
+      <Route path='/lecregister' element={<LecRegister/>}></Route>
     </Routes>
     </StudentContextProvider>
   )
