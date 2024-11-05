@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import email_icon from '../Images/email.png'
 import password_icon from '../Images/password.png'
+import '../css/LecSignIn.css'
 
 export default function Login() {
 
@@ -31,7 +32,7 @@ export default function Login() {
                 toast.error(data.error)
             }else{
                 setData({});
-                navigate('/dashboard')
+                navigate('/mainnavbar')
             }
         } catch (error) {
             
