@@ -7,9 +7,14 @@ import Login from './pages/Student/Login'
 import LecSignIn from '../src/pages/Lecturer/LecSignIn'
 import LecRegister from './pages/Lecturer/LecRegister'
 import SignNavbar from './components/SignNavbar'
+import MainNavbar from './components/MainNavbar'
+import SubRegister from './pages/Subjects/SubRegister'
+import SubSignIn from './pages/Subjects/SubSignIn'
 import axios from 'axios'
 import { Toaster } from 'react-hot-toast'
 import { StudentContextProvider } from '../contest/studentContest'
+import { LecturerContextProvider  } from '../contest/LecturerContext'
+import { SubjectContextProvider } from '../contest/SubjectContext'
 import Dashboard from './pages/Dashboard'
 
 axios.defaults.baseURL = 'http://localhost:8000'
@@ -18,7 +23,7 @@ axios.defaults.withCredentials = true
 function App() {
 
   return (
-    <StudentContextProvider>
+    <SubjectContextProvider>
     <Navbar></Navbar>
     <SignNavbar></SignNavbar>
     <Toaster position= 'bottom-right' toastOptions={{duration: 2000}}></Toaster>
@@ -29,8 +34,11 @@ function App() {
       <Route path='/dashboard' element={<Dashboard/>}></Route>
       <Route path='/lecsign' element={<LecSignIn/>}></Route>
       <Route path='/lecregister' element={<LecRegister/>}></Route>
+      <Route path='/mainnavbar' element={<MainNavbar/>}></Route>
+      <Route path='/subregister' element={<SubRegister/>}></Route>
+      <Route path='/subsignin' element={<SubSignIn/>}></Route>
     </Routes>
-    </StudentContextProvider>
+    </SubjectContextProvider>
   )
 }
 
