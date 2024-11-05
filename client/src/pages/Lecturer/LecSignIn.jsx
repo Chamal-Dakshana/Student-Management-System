@@ -8,8 +8,6 @@ import email_icon from '../Images/email.png'
 import password_icon from '../Images/password.png'
 
 
-
-
 export default function LecSignIn() {
 
     const navigate = useNavigate();
@@ -23,8 +21,23 @@ export default function LecSignIn() {
         password:'' 
     })
 
-    const signInLecture = (e) => {
+    const signInLecture = async(e) => {
         e.preventDefault()
+        const {email, password} = data
+        try {
+            const {data} =await axios.post('/lecsign',{
+                email,
+                password
+            });
+            if(data.error) {
+                toast.error(data.error)
+            }else{
+                setData({});
+                navigate('/mainnavbar')
+            }
+        } catch (error) {
+            
+        }
     }
 
     return(
@@ -35,7 +48,7 @@ export default function LecSignIn() {
             <div className='inputs'>
                 <div className='input'>
                 <img className='Img1' src={email_icon} alt="" />
-                <TextField className='text1' type='email' id="filled-basic" label="Enter the name" variant="filled" value={data.email} onChange={(e) => setData({...data, email:e.target.value})}/>
+                <TextField className='text1' type='email' id="filled-basic" label="Enter the Email" variant="filled" value={data.email} onChange={(e) => setData({...data, email:e.target.value})}/>
                 </div>
                 <div className='input'>
                 <img className='Img1' src={password_icon} alt="" />
