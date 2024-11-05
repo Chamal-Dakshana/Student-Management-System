@@ -1,5 +1,6 @@
 const Lecturer = require('../models/lecture')
-
+const {hashPassword, comparePassword} = require("../helpers/auth")
+const jwt = require('jsonwebtoken')
 
 const lecRegister = async(req,res) => {
     try {
@@ -30,8 +31,13 @@ const lecRegister = async(req,res) => {
             })
         }
 
+        const hashedPassword = await hashPassword(password)
+        //create the lecturer in database
         const lecturer = await Lecturer.create({
-            name, subject, email, password
+            name, 
+            subject, 
+            email, 
+            password:hashedPassword,
         })
 
         return res.json(lecturer)
@@ -39,9 +45,55 @@ const lecRegister = async(req,res) => {
     } catch (error) {
         console.log(error)
     }
+};
+
+//lecturer login end point
+
+const lecSign = async(req,res) => {
+    try {
+        const {email,password} = req.body;
+
+        //check if user exists
+        const lecturer = await Lecturer.findOne({email});
+        if(!lecturer) {
+            return res.json({
+                error: 'Invalid Email!'
+            })
+        }
+
+         //Check the password match
+         const match = await comparePassword(password, lecturer.password)
+         if(match) {
+             jwt.sign({name:lecturer.name,subject: lecturer.subject, id: lecturer._id, email: lecturer.email}, process.env.JWT_SECRET, {}, (err, token) =>{
+                 if(err) throw err;
+                 res.cookie('token', token).json(lecturer)
+             })
+         }
+
+        if(!match){
+            res.json({
+                error: 'Password do not match'
+            })
+        }
+    }catch(error){
+        console.log(error)
+    }
 }
 
+const getProfileLec = (req, res) => {
+    const {token} = req.cookies
+    if(token) {
+        jwt.verify(token, process.env.JWT_SECRET, {}, (err, lecturer) =>{
+            if(err) throw err
+            res.json(lecturer)
+        }) 
+    }else{
+        res.json(null)
+    }
+    }
 
 module.exports ={
-    lecRegister
+    lecRegister,
+    lecSign,
+    getProfileLec
 }
