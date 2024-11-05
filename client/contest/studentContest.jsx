@@ -12,6 +12,8 @@ export function StudentContextProvider({children}) {
             })
         }
     }, [])
+
+    
     return (
         <StudentContext.Provider value={{student, setStudent}}>
             {children}
