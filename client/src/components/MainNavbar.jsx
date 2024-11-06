@@ -1,16 +1,12 @@
 import {useContext} from 'react'
 import { StudentContext } from '../../contest/studentContest'
-import { LecturerContext } from '../../contest/LecturerContext'
 import './css/SignNavbar.css'
 import logo_icon from '../pages/Images/logo.png'
-import { SubjectContext } from '../../contest/SubjectContext'
-
 
 export default function SignNavbar(){
 
     const { student } =useContext(StudentContext)
-    const { lecturer } = useContext(LecturerContext);
-    const { subject } = useContext(SubjectContext);
+
 
 
     return(
@@ -21,8 +17,6 @@ export default function SignNavbar(){
             </div>
             <div class="navbar-right">
             {!!student &&(<h2>HI {student.name}! </h2>)}
-            {!!lecturer && <h2>HI {lecturer.name}!</h2>}
-            {!!subject && <h2> {subject.name}</h2>}
             </div>
         </div>
     )

@@ -5,12 +5,14 @@ export const LecturerContext = createContext({})
 
 export function LecturerContextProvider({children}) {
     const[lecturer, setLecturer] = useState(null);
+    
     useEffect(() => {
         if(!lecturer){
             axios.get('/profileLec').then(({data}) => {
                 setLecturer(data)
-            })
+            }) 
         }
+    
     }, [])
 
     

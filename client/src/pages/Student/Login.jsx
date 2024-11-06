@@ -32,7 +32,7 @@ export default function Login() {
                 toast.error(data.error)
             }else{
                 setData({});
-                navigate('/mainnavbar')
+                navigate('/')
             }
         } catch (error) {
             
