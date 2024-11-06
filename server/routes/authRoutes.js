@@ -4,6 +4,7 @@ const cors = require('cors');
 const {test, registerStudent, loginStudent, getProfile} = require('../Controllers/authControllers')
 const {lecRegister,lecSign, getProfileLec} = require('../Controllers/lecAuthController')
 const { registerSubject, subSign, getProfileSub} = require('../Controllers/subAuthController')
+const lecSub = require('../Controllers/lecturerSubjectRoutes');
 
 //middleware
 router.use(   
@@ -23,6 +24,7 @@ router.get('/profileLec',getProfileLec)
 router.post('/subregister', registerSubject)
 router.post('/subsignin',subSign)
 router.get('/profileSub',getProfileSub)
+router.get('/lecturer-subjects',lecSub)
 
 
 

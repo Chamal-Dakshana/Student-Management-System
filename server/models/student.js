@@ -7,7 +7,8 @@ const studentSchema = new Schema({
         type: String,
         unique: true
     },
-    password: String
+    password: String,
+    profileImage: { type: String }
 })
 
 const StudentModel = mongoose.model('Student', studentSchema)

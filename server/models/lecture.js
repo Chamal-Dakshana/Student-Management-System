@@ -8,7 +8,8 @@ const lecturerSchema = new Schema({
         type: String,
         unique: true
     },
-    password: String
+    password: String,
+    lecprofileImage: { type: String }
 })
 
 const LecturerModel = mongoose.model('Lecturer', lecturerSchema)

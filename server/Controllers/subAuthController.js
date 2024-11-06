@@ -13,6 +13,14 @@ const registerSubject = async(req, res) => {
                 error: 'name is required'
             });
         }
+
+        const exist1 = await Subject.findOne({name});
+        if(exist1){
+            return res.json({
+                error: 'This Subject is Already Exist'
+            });
+        }
+
         // Check if  password is good
         if(!password || password.lenght > 6) {
             return res.json({

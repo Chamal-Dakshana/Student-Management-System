@@ -1,10 +1,25 @@
 const Lecturer = require('../models/lecture')
 const {hashPassword, comparePassword} = require("../helpers/auth")
 const jwt = require('jsonwebtoken')
+const multer = require('multer')
+const path = require('path')
+
+// Configure multer for image uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../server/image')  // Folder where images will be stored
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname))  // Unique file name with original extension
+    }
+})
+
+const upload = multer({ storage })
 
 const lecRegister = async(req,res) => {
     try {
         const{name, subject, email, password} = req.body;
+        const file = req.file;
         //Check if name was entered
         if(!name){
             return res.json({
@@ -16,6 +31,10 @@ const lecRegister = async(req,res) => {
             return res.json({
                 error: 'Subject is required'
             })
+        };
+        // Check if an image file was uploaded
+        if (!file) {
+            return res.json({ error: 'Lecturer Profile image is required' });
         };
         // Check is Password is good  
         if (!password || password.length < 6){
@@ -38,6 +57,7 @@ const lecRegister = async(req,res) => {
             subject, 
             email, 
             password:hashedPassword,
+            lecprofileImage: file.path
         })
 
         return res.json(lecturer)
@@ -64,7 +84,7 @@ const lecSign = async(req,res) => {
          //Check the password match
          const match = await comparePassword(password, lecturer.password)
          if(match) {
-             jwt.sign({name:lecturer.name,subject: lecturer.subject, id: lecturer._id, email: lecturer.email}, process.env.JWT_SECRET, {}, (err, token) =>{
+             jwt.sign({name:lecturer.name,subject: lecturer.subject, id: lecturer._id, email: lecturer.email, lecprofileImage:lecturer.lecprofileImage }, process.env.JWT_SECRET, {}, (err, token) =>{
                  if(err) throw err;
                  res.cookie('token', token).json(lecturer)
              })
@@ -93,7 +113,7 @@ const getProfileLec = (req, res) => {
     }
 
 module.exports ={
-    lecRegister,
+    lecRegister :[upload.single('lecprofileImage'), lecRegister],  // Middleware for image upload,
     lecSign,
     getProfileLec
 }
