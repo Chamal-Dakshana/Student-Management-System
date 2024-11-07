@@ -1,7 +1,7 @@
 import './App.css'
 import { Routes, Route, useLocation } from 'react-router-dom'
-import Navbar from '../src/components/Navbar'
 import Home from '../src/pages/Home'
+import LecHome from '../src/pages/LecHome'
 import Register from './pages/Student/Register'
 import Login from './pages/Student/Login'
 import LecSignIn from '../src/pages/Lecturer/LecSignIn'
@@ -16,7 +16,8 @@ import { StudentContextProvider } from '../contest/studentContest'
 import { LecturerContextProvider } from '../contest/LecturerContext'
 import { SubjectContextProvider } from '../contest/SubjectContext'
 import { LecSubContextProvider } from '../contest/LecSubContext'
-import Dashboard from './pages/Dashboard'
+
+import StudentRegisteredSubjects from '../src/pages/StudentRegisteredSubjects'
 
 axios.defaults.baseURL = 'http://localhost:8000'
 axios.defaults.withCredentials = true
@@ -25,7 +26,7 @@ function App() {
   const location = useLocation()
 
   // Define paths where SignNavbar should be displayed
-  const authPaths = ['/login', '/register', '/lecsign', '/lecregister', '/subregister', '/subsignin']
+  const authPaths = ['/', '/register', '/lecsign', '/lecregister', '/subregister', '/subsignin']
 
   return (
     <LecSubContextProvider>
@@ -38,10 +39,11 @@ function App() {
             <Toaster position='bottom-right' toastOptions={{ duration: 2000 }} />
             
             <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
+              <Route path='/home' element={<Home />} />
+              <Route path='/lechome' element={<LecHome />} />
+              <Route path='/registered-subjects' element={<StudentRegisteredSubjects />} />
+              <Route path='/' element={<Login />} />
               <Route path='/register' element={<Register />} />
-              <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/lecsign' element={<LecSignIn />} />
               <Route path='/lecregister' element={<LecRegister />} />
               <Route path='/mainnavbar' element={<MainNavbar />} />
