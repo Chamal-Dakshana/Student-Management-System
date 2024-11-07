@@ -13,7 +13,7 @@ export default function Register() {
 
   //Use handleSignUp function for navigate to sign in page
   const handleSignUp = () => {
-    navigate('/login');
+    navigate('/');
   };
 
   const [data, setData] = useState({
